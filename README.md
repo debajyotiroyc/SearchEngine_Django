@@ -1,2 +1,2 @@
 # SearchEngine_Django
-Google Clone using Django Framework
+Seacrh Engine (Google Clone) using Django Framework and Web Scraping.
