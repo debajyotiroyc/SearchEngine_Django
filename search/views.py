@@ -11,4 +11,16 @@ def search(request):
         url='https://www.ask.com/web?q='+search
         res = requests.get(url)
         soup = bs(res.text,'lxml')
-    return render(request,"index.html")
+
+        results_listings=soup.find_all('div',{'class':"PartialSearchResults-item"})
+        final_res=[]
+        for result in results_listings:
+            result_title=result.find(class_='PartialSearchResults-item-title').text
+            result_url=result.find('a').get('href')
+            result_desc = result.find(class_='PartialSearchResults-item-abstract').text
+
+            final_res.append((result_title,result_url,result_desc))
+        context = {'final_result':final_res}
+        return render(request,'search.html',context)
+    else:
+        return render(request,'search.html')
